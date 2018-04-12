@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Issues from './views/Issues'
+import Pulls from './views/Pulls'
 import Favourites from './views/Favourites'
 import Profile from './views/Profile'
 
@@ -12,6 +13,11 @@ export default new Router({
       path: '/issues',
       name: 'issues',
       component: Issues
+    },
+    {
+      path: '/pulls',
+      name: 'pulls',
+      component: Pulls
     },
     {
       path: '/favourites',

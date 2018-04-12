@@ -1,6 +1,7 @@
 <template>
   <div class="about">
-    <form novalidate @submit.prevent>
+    <HasToken v-if="this.$localStorage.get('token')"/>
+    <form novalidate @submit.prevent v-else>
       <md-card>
         <md-card-header>
           <div class="md-title">Set token</div>
@@ -23,8 +24,13 @@
 </template>
 
 <script>
+import HasToken from '@/components/HasToken'
+
 export default {
   name: 'profile',
+  components: {
+    HasToken
+  },
   data () {
     return {
       gitHubToken: null,

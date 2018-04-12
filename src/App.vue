@@ -36,6 +36,9 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons');
+:root {
+  --md-theme-default-primary: #3f51b5;
+}
 </style>
 
 <style scoped>

@@ -3,6 +3,7 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import VueLocalStorage from 'vue-localstorage'
+import VueLocalForage from 'vue-localforage'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -10,6 +11,10 @@ import './registerServiceWorker'
 
 Vue.use(VueMaterial)
 Vue.use(VueLocalStorage)
+Vue.use(VueLocalForage)
+Vue.prototype.$storageConfig({
+  name: 'trackerData'
+})
 
 Vue.config.productionTip = false
 

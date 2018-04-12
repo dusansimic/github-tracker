@@ -1,10 +1,10 @@
 <template>
-  <div class="latest">
+  <div class="pulls">
     <NoToken v-if="!this.$localStorage.get('token')"/>
     <div v-else>
       <md-list class="md-tripple-line">
-        <div v-for="issue in latestIssues" v-bind:key="issue.title">
-          <Issue :issue="issue"/>
+        <div v-for="pull in latestPulls" v-bind:key="pull.title">
+          <Pull :pull="pull"/>
         </div>
       </md-list>
     </div>
@@ -13,17 +13,17 @@
 
 <script>
 import NoToken from '@/components/NoToken'
-import Issue from '@/components/Issue'
+import Pull from '@/components/Pull'
 
 export default {
-  name: 'latest',
+  name: 'pulls',
   components: {
     NoToken,
-    Issue
+    Pull
   },
   data () {
     return {
-      latestIssues: []
+      latestPulls: []
     }
   },
   methods: {
@@ -51,15 +51,15 @@ export default {
       }
     },
     getLatest () {
-      this.$getItem('latestIssues').then(data => {
+      this.$getItem('latestPulls').then(data => {
         if (data !== undefined || data !== null) {
-          this.latestIssues = data
+          this.latestPulls = data
         }
       })
 
-      const issuesQuery = {query: `query {
+      const pullsQuery = {query: `query {
         viewer {
-          issues(orderBy: {direction: DESC, field: CREATED_AT}, first: 10) {
+          pullRequests(orderBy: {direction: DESC, field: UPDATED_AT}, first: 10, states: OPEN) {
             nodes {
               author {
                 avatarUrl,
@@ -82,16 +82,15 @@ export default {
         method: 'POST',
         headers: new Headers({
           Authorization: `bearer ${this.$localStorage.get('token')}`,
-          'Content-Length': JSON.stringify(issuesQuery).length,
+          'Content-Length': JSON.stringify(pullsQuery).length,
           'Content-Type': 'application/json'
         }),
-        body: JSON.stringify(issuesQuery)
+        body: JSON.stringify(pullsQuery)
       }).then(res => res.json()).then(data => {
-        this.latestIssues = data.data.viewer.issues.nodes
-        this.$getItem('latestIssues').then(data => {
-          if (!this.deepEqual(data, this.latestIssues)) {
-            console.log('It is equal')
-            this.$setItem('latestIssues', this.latestIssues)
+        this.latestPulls = data.data.viewer.pullRequests.nodes
+        this.$getItem('latestPulls').then(data => {
+          if (!this.deepEqual(data, this.latestPulls)) {
+            this.$setItem('latestPulls', this.latestPulls)
           }
         })
       }).catch(err => {

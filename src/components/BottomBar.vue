@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="phone-viewpoer">
-      <md-bottom-bar md-sync-route>
+      <md-bottom-bar class="md-primary" md-sync-route>
         <md-bottom-bar-item to="/issues" id="bottom-bar-item-issues" md-label="Issues" md-icon="./../assets/git-merge.svg">
           <i class="md-icon md-icon-font md-bottom-bar-icon md-theme-default customIcon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg>
@@ -14,7 +14,7 @@
           </i>
           <span class="md-bottom-bar-label">Pulls</span>
         </md-bottom-bar-item>
-        <md-bottom-bar-item to="/favourites" id="bottom-bar-item-favorites" md-label="Favorites" md-icon="favorite"></md-bottom-bar-item>
+        <!-- <md-bottom-bar-item to="/favourites" id="bottom-bar-item-favorites" md-label="Favorites" md-icon="favorite"></md-bottom-bar-item> -->
         <md-bottom-bar-item to="/profile" id="bottom-bar-item-profile" md-label="Profile" md-icon="person"></md-bottom-bar-item>
       </md-bottom-bar>
     </div>
