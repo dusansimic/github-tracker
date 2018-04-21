@@ -14,6 +14,7 @@
 <script>
 import NoToken from '@/components/NoToken'
 import Issue from '@/components/Issue'
+const MAX_NUMBER = 2 ^ 31 - 1
 
 export default {
   name: 'latest',
@@ -72,7 +73,79 @@ export default {
                   login
                 }
               },
-              title
+              labels(first: ${MAX_NUMBER}) {
+                nodes {
+                  color,
+                  name
+                }
+              },
+              timeline(first: ${MAX_NUMBER}) {
+                nodes {
+                  __typename
+                  ... on AssignedEvent {
+                    actor {
+                      avatarUrl,
+                      login
+                    },
+                    createdAt,
+                    user {
+                      avatarUrl,
+                      login
+                    }
+                  }
+                  ... on ClosedEvent {
+                    actor {
+                      avatarUrl,
+                      login
+                    },
+                    createdAt
+                  }
+                  ... on Commit {
+                    author {
+                      user {
+                        avatarUrl,
+                        login
+                      }
+                    },
+                    additions,
+                    deletions,
+                    committedDate
+                  },
+                  ... on CrossReferencedEvent {
+                    actor {
+                      avatarUrl,
+                      login
+                    },
+                    source {
+                      __typename
+                      ... on Issue {
+                        title
+                      }
+                      ... on PullRequest {
+                        title
+                      }
+                    }
+                  }
+                  ... on IssueComment {
+                    author {
+                      avatarUrl,
+                      login
+                    },
+                    body,
+                    publishedAt,
+                    reactions(first: ${MAX_NUMBER}) {
+                      nodes {
+                        content,
+                        user {
+                          login
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              title,
+              id
             }
           }
         }
@@ -90,7 +163,6 @@ export default {
         this.latestIssues = data.data.viewer.issues.nodes
         this.$getItem('latestIssues').then(data => {
           if (!this.deepEqual(data, this.latestIssues)) {
-            console.log('It is equal')
             this.$setItem('latestIssues', this.latestIssues)
           }
         })
