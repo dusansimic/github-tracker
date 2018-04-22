@@ -1,19 +1,32 @@
 <template>
   <div class="issueView" v-if="issueData">
-    <h2>{{ issueData.title }}</h2>
-    <div v-for="object in issueData.timeline.nodes" v-bind:key="object">
+    <div class="md-title"><b>{{ issueData.title }} #{{ issueData.number }}</b></div>
+    <div class="md-subtitle">{{ this.$moment(issueData.publishedAt).fromNow() }}</div>
+    <p class="issueBody">
+      <vue-markdown>{{ issueData.body }}</vue-markdown>
+    </p>
+    <div v-for="object in issueData.timeline.nodes" v-bind:key="object.id">
+      <br/>
+      <AssignedEvent v-if="object.__typename === 'AssignedEvent'" :data="object"/>
+      <ClosedEvent v-if="object.__typename === 'ClosedEvent'" :data="object"/>
       <Comment v-if="object.__typename === 'IssueComment'" :data="object"/>
     </div>
   </div>
 </template>
 
 <script>
+import AssignedEvent from '@/components/AssignedEvent'
+import ClosedEvent from '@/components/ClosedEvent'
 import Comment from '@/components/Comment'
+import VueMarkdown from 'vue-markdown'
 
 export default {
   name: 'issueView',
   components: {
-    Comment
+    AssignedEvent,
+    ClosedEvent,
+    Comment,
+    VueMarkdown
   },
   data () {
     return {
@@ -34,7 +47,7 @@ export default {
 </script>
 
 <style>
-#commentCard {
-  margin-bottom: 10px;
+.issueBody {
+  word-wrap: break-word;
 }
 </style>

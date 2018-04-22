@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.0.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.f10244ffcf54147b3a9910036b91062f.js"
+  "/precache-manifest.4f726bde1225215831efbd99196ee35a.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "github-tracker"});

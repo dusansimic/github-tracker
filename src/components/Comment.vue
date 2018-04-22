@@ -1,13 +1,13 @@
 <template>
   <div class="comment">
-    <br/>
-    <md-card class="commentCard">
+    <md-card>
       <md-card-header>
         <md-avatar>
           <img :src="data.author.avatarUrl" :alt="data.author.login">
         </md-avatar>
 
         <div class="md-title">{{ data.author.login }}</div>
+        <div class="md-subtitle">{{ this.$moment(data.publishedAt).fromNow() }}</div>
       </md-card-header>
 
       <md-card-content>

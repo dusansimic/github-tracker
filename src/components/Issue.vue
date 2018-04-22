@@ -26,7 +26,7 @@ export default {
 
 <style>
 .customIconClosed {
-  color: #cb2431;
+  color: #dd0c1e;
   fill: currentColor;
 }
 .customIconOpen {

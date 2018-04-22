@@ -109,6 +109,7 @@ export default {
                     },
                     additions,
                     deletions,
+                    message,
                     committedDate
                   },
                   ... on CrossReferencedEvent {
@@ -145,6 +146,9 @@ export default {
                 }
               },
               title,
+              body,
+              publishedAt,
+              number,
               id
             }
           }
