@@ -5,3 +5,9 @@ install:
   - npm install
 script:
   - npm run build
+notifications:
+  email:
+    recipients:
+      - dusan.simic1810@gmail.com
+    on_success: never
+    on_failure: always
